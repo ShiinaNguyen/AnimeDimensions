@@ -32,7 +32,7 @@ _G.Settings = {
     Height1 = -20,
     otherds = "@here",
     dsuser = "Not Set",
-    AutoPunch = true,
+    AutoPunch = false,
     punchdelay = "4",
     custommapselect = "None",
     webhookspeed = "10",
@@ -48,6 +48,7 @@ _G.Settings = {
     AutoSkill2 = true,
     AutoSkill3 = true,
     AutoSkill4 = true,
+    AutoAwakened = true,
     AutoSkill5 = true,
     AutoSkill6 = true,
     kickwebhook = false,
@@ -179,7 +180,8 @@ local p = {
     "Eugeo",
     "Gear 5 Luffy",
     "Esper",
-    "Astolfo Summer Character"
+    "Astolfo Summer Character",
+    "Naruto (Kurama Mode)"
 }
 local q = {
 	"Halloween Dimension",
@@ -549,7 +551,7 @@ w:AddToggle(
                                 "TeleportPlayers"
                             )
                         end
-                        if Lvl > 131 then
+                        if Lvl >= 131 then
                             wait(1)
                             game:GetService("ReplicatedStorage").RemoteFunctions.MainRemoteFunction:InvokeServer(
                                 "CreateRoom",
@@ -1837,16 +1839,16 @@ E:AddToggle(
 )
 E:AddToggle(
     {
-        Name = "skill 5 (awaken units)",
-        Default = _G.Settings.AutoSkill5,
+        Name = "skill 5",
+        Default = _G.Settings.AutoAwakened,
         Color = Color3.fromRGB(255,215,0),
         Callback = function(H)
-            _G.Settings.AutoSkill5 = H
+            _G.Settings.AutoAwakened = H
             saveSettings()
             task.spawn(
                 function()
                     while task.wait(_G.Settings.skilldelay) do
-                        if not _G.Settings.AutoSkill5 then
+                        if not _G.Settings.AutoAwakened then
                             break
                         end
                         for m, n in pairs(
@@ -1862,7 +1864,6 @@ E:AddToggle(
         end
     }
 )
-
 E:AddToggle(
     {
         Name = "Assist 1",
